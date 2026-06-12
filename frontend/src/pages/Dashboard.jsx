@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiUploadCloud, FiFileText, FiAward, FiCheckCircle, FiCheck, FiXCircle } from 'react-icons/fi';
+import { API_BASE_URL } from '../config';
 import axios from 'axios';
 
 const Dashboard = () => {
@@ -31,7 +32,7 @@ const Dashboard = () => {
   const fetchResumes = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/resume', {
+      const response = await axios.get(`${API_BASE_URL}/api/resume`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setResumes(response.data);
@@ -65,7 +66,7 @@ const Dashboard = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('http://localhost:5000/api/resume/upload', formData, {
+      const response = await axios.post(`${API_BASE_URL}/api/resume/upload`, formData, {
         headers: { 
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`

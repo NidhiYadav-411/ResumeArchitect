@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Webcam from 'react-webcam';
 import { FiMic, FiMicOff, FiVideo, FiVideoOff, FiSend } from 'react-icons/fi';
+import { API_BASE_URL } from '../config';
 import axios from 'axios';
 
 const MockInterview = () => {
@@ -28,7 +29,7 @@ const MockInterview = () => {
     }
     
     // Fetch user resumes
-    axios.get('http://localhost:5000/api/resume', {
+    axios.get(`${API_BASE_URL}/api/resume`, {
       headers: { Authorization: `Bearer ${token}` }
     }).then(response => {
       setResumes(response.data);
@@ -79,7 +80,7 @@ const MockInterview = () => {
     if (!selectedResumeId) return;
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('http://localhost:5000/api/interview/start', 
+      const response = await axios.post(`${API_BASE_URL}/api/interview/start`, 
         { resumeId: selectedResumeId },
         { headers: { Authorization: `Bearer ${token}` }}
       );
@@ -131,7 +132,7 @@ const MockInterview = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('http://localhost:5000/api/interview/message', 
+      const response = await axios.post(`${API_BASE_URL}/api/interview/message`, 
         { interviewId, userMessage },
         { headers: { Authorization: `Bearer ${token}` }}
       );
@@ -154,7 +155,7 @@ const MockInterview = () => {
   const finishInterview = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('http://localhost:5000/api/interview/finish', 
+      const response = await axios.post(`${API_BASE_URL}/api/interview/finish`, 
         { interviewId },
         { headers: { Authorization: `Bearer ${token}` }}
       );

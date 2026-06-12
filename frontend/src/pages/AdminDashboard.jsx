@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiUsers, FiFileText, FiVideo, FiShield } from 'react-icons/fi';
-import axios from 'axios';
+import { API_BASE_URL } from '../config';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const AdminDashboard = () => {
       return;
     }
 
-    axios.get('http://localhost:5000/api/admin/stats', {
+    axios.get(`${API_BASE_URL}/api/admin/stats`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(res => {

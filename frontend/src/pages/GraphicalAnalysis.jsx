@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
-import axios from 'axios';
+import { API_BASE_URL } from '../config';
 
 const GraphicalAnalysis = () => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const GraphicalAnalysis = () => {
     const token = localStorage.getItem('token');
     if (!token) navigate('/login');
     
-    axios.get('http://localhost:5000/api/resume', {
+    axios.get(`${API_BASE_URL}/api/resume`, {
       headers: { Authorization: `Bearer ${token}` }
     }).then(response => {
       setResumes(response.data.reverse()); // Chronological 
